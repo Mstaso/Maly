@@ -1,11 +1,15 @@
 import React from 'react'
 import Post from '../Components/Post'
 
-function PostContainer(){
+function PostContainer(props){
+
+    let posts = props.postArray.map(post => {return <Post key={post.id} post={post} />})
+
     return(
         <div>
-            Hello from post container
-            <Post />
+            
+            {posts}
+           
         </div>
     )
 }
