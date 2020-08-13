@@ -5,7 +5,18 @@ import Navbar from './Navbar'
 
 class Post extends React.Component{
 
+state = {
+    content: ''
+}
+    commentHandler = (e) => {
+        e.preventDefault()
+        let id = e.target.id
+        this.props.commentUpdater(id, this.state.content)
+    }
 
+    changeHandler = (e) => {
+        this.setState({[e.target.name]:e.target.value})
+    }
     comments = () => {
         return this.props.post.comments.map(comment => {return <Comment key={comment.id} comment={comment} />})
     }
@@ -38,7 +49,15 @@ class Post extends React.Component{
                     <h4>{this.props.post.brand}</h4>
                     <h4>{this.props.post.rating}</h4>
                     <h4>{this.props.post.likes}</h4>
-                    <p>{this.comments()}</p>    
+
+                    <form id={this.props.post.id} onSubmit={this.commentHandler}>
+                    <input type='text' name='content' value={this.state.content} onChange={this.changeHandler}/>
+                    <input type="submit" value="Add Comment"/>
+                    </form>
+
+
+
+                    <div>{this.comments()}</div>    
                 </div>
 
             }
