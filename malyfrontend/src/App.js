@@ -46,11 +46,7 @@ class App extends React.Component {
       body: JSON.stringify(newComment)
     })
     .then(response => response.json())
-    .then(response => this.addCommentToShowPage())
-  }
-
-  addCommentToShowPage = () => {
-    this.setState({post: this.state.post})
+    .then(response => this.fetchPosts())
   }
 
   render(){

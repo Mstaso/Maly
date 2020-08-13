@@ -41,23 +41,29 @@ state = {
                 </div>
                 </NavLink>: 
 
-                <div class="post">
-                    <img src={this.props.post.image} />
-                    <h1>{this.props.post.name}</h1>
-                    <h3>{this.props.post.category}</h3>
-                    <p>{this.props.post.description}</p>
-                    <h4>{this.props.post.brand}</h4>
-                    <h4>{this.props.post.rating}</h4>
-                    <h4>{this.props.post.likes}</h4>
-
-                    <form id={this.props.post.id} onSubmit={this.commentHandler}>
-                    <input type='text' name='content' value={this.state.content} onChange={this.changeHandler}/>
-                    <input type="submit" value="Add Comment"/>
-                    </form>
-
-
-
-                    <div>{this.comments()}</div>    
+                <div class="flex-container">
+                <div class="flex-child magenta">
+                    <img  src={this.props.post.image} />
+                    <h4>Rating: {this.props.post.rating}/5 </h4>
+                    <h4>Likes: {this.props.post.likes}</h4>
+                    <div>
+                        <h2>Comments</h2>
+                        <form id={this.props.post.id} onSubmit={this.commentHandler}>
+                        <input type='text' name='content' value={this.state.content} onChange={this.changeHandler}/>
+                        <input type="submit" value="Add Comment"/>
+                        </form> 
+                        <div>{this.comments()}</div> 
+                    </div>
+                </div>
+                <div class="flex-child green">
+                    <h1 style={{display: 'flex', justifyContent: 'center'}}>
+                        {this.props.post.name}
+                    </h1>
+                    <br/>
+                    <h3>Furniture Category: {this.props.post.category}</h3>
+                    <h4>Brand: {this.props.post.brand}</h4>
+                    <p>{this.props.post.description}</p>  
+                </div> 
                 </div>
 
             }

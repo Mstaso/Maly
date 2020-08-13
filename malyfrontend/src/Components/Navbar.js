@@ -1,42 +1,24 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom';
- 
 const link = {
   width: '100px',
   padding: '12px',
   margin: '0 6px 6px',
-  background: 'blue',
+  background: 'black',
   textDecoration: 'none',
   color: 'white',
 }
- 
 class Navbar extends React.Component {
   render() {
     return (
-        
-      <div>
-        
-        <NavLink
-          to="/welcome"
-          exact
-          style={link}
-          activeStyle={{
-            background: 'darkblue'
-          }}
-        >Welcome</NavLink>
-        
-        <NavLink
-          to="/posts"
-          exact
-          style={link}
-          activeStyle={{
-            background: 'darkblue'
-          }}
-        >Home</NavLink>
-      
+      <div class="header">
+        <h1 class="logo"><a href="#"><img id="logo" src="https://img.icons8.com/pastel-glyph/2x/home.png" /></a></h1>
+        <ul class="main-nav" >
+        <li><a href="#"><NavLink to="/welcome" exact>Welcome</NavLink></a></li>
+        <li><a href="#"><NavLink to="/posts" exact>Home</NavLink></a></li>
+        </ul>
       </div>
     )
   }
 }
- 
 export default Navbar;
