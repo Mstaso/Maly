@@ -16,16 +16,33 @@ class Post extends React.Component{
 
     render(){
         return(
-            <NavLink to={`/posts/${this.props.post.id}`}>
-            <div onClick={this.postClickHandler} >
-                <figure>
+            <>
+            {this.props.individualPost ? 
+                
+                <NavLink to={`/posts/${this.props.post.id}`}>
+                <div onClick={this.postClickHandler} >
+                    <figure>
+                        <img src={this.props.post.image} />
+                    <figcaption>
+                        <p>{this.props.post.description}</p>
+                    </figcaption>
+                    </figure>
+                </div>
+                </NavLink>: 
+
+                <div class="post">
                     <img src={this.props.post.image} />
-                <figcaption>
+                    <h1>{this.props.post.name}</h1>
+                    <h3>{this.props.post.category}</h3>
                     <p>{this.props.post.description}</p>
-                </figcaption>
-                </figure>
-            </div>
-            </NavLink>
+                    <h4>{this.props.post.brand}</h4>
+                    <h4>{this.props.post.rating}</h4>
+                    <h4>{this.props.post.likes}</h4>
+                    <p>{this.comments()}</p>    
+                </div>
+
+            }
+            </>
         ) 
     }
 }
