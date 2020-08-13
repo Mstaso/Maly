@@ -17,11 +17,11 @@ class Post extends React.Component{
     render(){
         return(
             <NavLink to={`/posts/${this.props.post.id}`}>
-            <div id="columns" onClick={this.postClickHandler} >
+            <div onClick={this.postClickHandler} >
                 <figure>
-                <img src={this.props.post.image} />
+                    <img src={this.props.post.image} />
                 <figcaption>
-                <p>{this.props.post.description}</p>
+                    <p>{this.props.post.description}</p>
                 </figcaption>
                 </figure>
             </div>

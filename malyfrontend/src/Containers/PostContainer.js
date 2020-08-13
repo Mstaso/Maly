@@ -25,8 +25,7 @@ class PostContainer extends React.Component{
 
                         <Route path="/posts" render={() => {
                             return(
-                                <div className="index">
-                                    <h2 style={{fontFamily:"Courier"}}>All Posts</h2>
+                                <div id="columns">
                                     {this.posts()}
                                 </div>
                             )

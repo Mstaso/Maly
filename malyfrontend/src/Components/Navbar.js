@@ -25,7 +25,7 @@ class Navbar extends React.Component {
         >Welcome</NavLink>
         
         <NavLink
-          to="/home"
+          to="/posts"
           exact
           style={link}
           activeStyle={{
