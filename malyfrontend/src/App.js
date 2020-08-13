@@ -1,7 +1,9 @@
 import React from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './App.css';
-import './Containers/PostContainer'
 import PostContainer from './Containers/PostContainer';
+import Welcome from './Components/Welcome'
+import Navbar from './Components/Navbar'
 
 const API = "http://localhost:3000/posts"
 
@@ -9,7 +11,8 @@ const API = "http://localhost:3000/posts"
 class App extends React.Component {
 
   state = {
-    postArray: []
+    postArray: [],
+    post: {}
   }
 
   fetchPosts = () => {
@@ -22,11 +25,21 @@ class App extends React.Component {
     this.fetchPosts()
   }
 
+  appClickHandler = (post_obj) => {
+    this.setState({ post:post_obj })
+  }
+
   render(){
     return (
-      <div>
-        <PostContainer postArray={this.state.postArray} />
-      </div>
+      <>
+          <BrowserRouter>
+            <Navbar />
+            <Switch>
+              <Route path="/welcome" component ={Welcome} />
+              <Route path="/posts" render={() => <PostContainer postArray={this.state.postArray} appClickHandler={this.appClickHandler} individualPost= {this.state.post} />} />
+            </Switch>
+          </BrowserRouter>
+      </>
     )
   }
 }

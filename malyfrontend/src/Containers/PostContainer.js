@@ -1,17 +1,50 @@
 import React from 'react'
 import Post from '../Components/Post'
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-function PostContainer(props){
+class PostContainer extends React.Component{
 
-    let posts = props.postArray.map(post => {return <Post key={post.id} post={post} />})
 
-    return(
-        <div>
-            
-            {posts}
-           
-        </div>
-    )
+    posts = () => {
+        return this.props.postArray.map(post => {return <Post key={post.id} post={post} appClickHandler={this.props.appClickHandler} individualPost={this.props.individualPost} />})
+    }
+
+    render(){
+
+        return(
+            <>
+                {this.props.postArray.length === 0 ? <h1>Loading</h1>:
+                <>
+                    <BrowserRouter>
+                        <Switch>
+                        <Route path='/posts/:id' render={({match}) => {
+                            let id = parseInt(match.params.id)
+                            let foundPost = this.props.postArray.find(post => post.id === id)
+                            return <Post post={foundPost} appClickHandler={this.props.appClickHandler} />
+                        }}/>
+
+                        <Route path="/posts" render={() => {
+                            return(
+                                <div className="index">
+                                    <h2 style={{fontFamily:"Courier"}}>All Posts</h2>
+                                    {this.posts()}
+                                </div>
+                            )
+                        }} />
+                        </Switch>
+                    </BrowserRouter>
+                </>
+                }
+            </>
+        )
+    }
 }
 
+
 export default PostContainer
+
+
+
+//{posts}
+
+
