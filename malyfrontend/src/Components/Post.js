@@ -1,7 +1,7 @@
 import React from 'react'
 import Comment from './Comment'
 import { NavLink } from 'react-router-dom'
-import Navbar from './Navbar'
+
 
 class Post extends React.Component{
 

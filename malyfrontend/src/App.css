@@ -96,7 +96,7 @@ a {
 text-decoration: none;
 }
 .logo {
-margin: 0;
+margin-left: -100px;
 font-size: 1.45em;
 }
 .main-nav {
@@ -129,8 +129,9 @@ box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
 border-radius: 5px;
 }
 #logo{
-max-width: 20%;
-max-height: 20%;
+max-width: 10%;
+max-height: 10%;
+
 }
 /* ================================= 
 Media Queries

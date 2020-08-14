@@ -12,10 +12,11 @@ class Navbar extends React.Component {
   render() {
     return (
       <div class="header">
-        <h1 class="logo"><a href="#"><img id="logo" src="https://img.icons8.com/pastel-glyph/2x/home.png" /></a></h1>
+        <h1 class="logo"><a href="#"><img id="logo" src="https://img.icons8.com/pastel-glyph/2x/home.png" />M A L A Y</a></h1>
         <ul class="main-nav" >
         <li><a href="#"><NavLink to="/welcome" exact>Welcome</NavLink></a></li>
         <li><a href="#"><NavLink to="/posts" exact>Home</NavLink></a></li>
+        <li><a href="#"><NavLink to="/newform" exact>New Post</NavLink></a></li>
         </ul>
       </div>
     )

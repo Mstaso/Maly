@@ -1,4 +1,5 @@
 import React from 'react'
+import { NavLink, withRouter } from 'react-router-dom'
 
 class NewForm extends React.Component {
 
@@ -9,11 +10,11 @@ class NewForm extends React.Component {
         description: '',
         brand: '',
         rating: '',
-        link: ''
+        link: '',
+        user_id: 1
     }
 
     changeHandler = (e) => {
-        console.log('been changed')
         this.setState({
             [e.target.name]:e.target.value
         })
@@ -21,12 +22,11 @@ class NewForm extends React.Component {
 
     submitHandler = (e) => {
         e.preventDefault()
-        //pass this.state to a this.props function
-        console.log('been submit')
+        this.props.fetchNewPost(this.state)
+        this.props.history.push("/posts");
     }
 
     render(){
-        console.log(this.props)
         return(
             <div>
                 <form onSubmit={this.submitHandler}>
@@ -59,4 +59,4 @@ class NewForm extends React.Component {
     }
 }
 
-export default NewForm
+export default withRouter(NewForm)

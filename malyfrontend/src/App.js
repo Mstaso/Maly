@@ -51,29 +51,26 @@ class App extends React.Component {
   }
 
   fetchNewPost=(obj)=>{
-    console.log('fetch from app')
     fetch('http://localhost:3000/posts', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        accept: 'application/json'
       },
       body: JSON.stringify(obj)
     })
     .then(response => response.json())
-    //maybe setState of response to post and send to post show page after creation
-    .then(response => this.fetchPosts())
+    .then(newPostData => this.setState({ postArray: [...this.state.postArray,newPostData] }))
   }
 
   render(){
-    console.log(this.state.post)
     return (
       <>
           <BrowserRouter>
             <Navbar />
             <Switch>
               <Route path="/welcome" component ={Welcome} />
-              <Route path="/newform" component ={NewForm} fetchNewPost={this.fetchNewPost} />
+              <Route path="/newform" render={() => <NewForm fetchNewPost={this.fetchNewPost} />} />
               <Route path="/posts" render={() => <PostContainer postArray={this.state.postArray} appClickHandler={this.appClickHandler} individualPost= {this.state.post} commentUpdater={this.commentUpdater}/>} />
             </Switch>
           </BrowserRouter>
@@ -83,3 +80,4 @@ class App extends React.Component {
 }
 
 export default App;
+
