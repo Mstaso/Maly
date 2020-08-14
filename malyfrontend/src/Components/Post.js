@@ -43,16 +43,32 @@ state = {
 
                 <div class="flex-container">
                 <div class="flex-child magenta">
-                    <img  src={this.props.post.image} />
+                    <img id="postImg" src={this.props.post.image} />
                     <h4>Rating: {this.props.post.rating}/5 </h4>
                     <h4>Likes: {this.props.post.likes}</h4>
                     <div>
                         <h2>Comments</h2>
-                        <form id={this.props.post.id} onSubmit={this.commentHandler}>
+                            <div class="wrapper">
+                            <div class="commentBoxfloat">
+                            <form id="cmnt" id={this.props.post.id} onSubmit={this.commentHandler}>
+                                <fieldset id="commentFieldset">
+                                <div class="form_grp">
+                                    <label>comment</label>
+                                    <textarea id="userCmnt" placeholder="Write your comment here." name='content' value={this.state.content} onChange={this.changeHandler} ></textarea>        
+                                </div>
+                                <div class="form_grp">
+                                <button type="button" id="submit"><input id="submit" type="submit"/></button>
+                                </div>
+                                </fieldset>
+                            </form>  
+                            </div> 
+                            <div id="cmntContr"></div>
+                            <div>{this.comments()}</div> 
+                            </div>
+                        {/* <form id={this.props.post.id} onSubmit={this.commentHandler}>
                         <input type='text' name='content' value={this.state.content} onChange={this.changeHandler}/>
                         <input type="submit" value="Add Comment"/>
-                        </form> 
-                        <div>{this.comments()}</div> 
+                        </form>  */}
                     </div>
                 </div>
                 <div class="flex-child green">
@@ -75,16 +91,19 @@ state = {
 export default Post
 
 
-/*
-Content for the show page of post 
-
-<h1>{this.props.post.name}</h1>
-<h3>{this.props.post.category}</h3>
-<p>{this.props.post.description}</p>
-<h4>{this.props.post.brand}</h4>
-<h4>{this.props.post.rating}</h4>
-<h4>{this.props.post.likes}</h4>
-<p>{this.comments()}</p>
-
-
-*/
+{/* <div class="wrapper">
+<div class="commentBoxfloat">
+  <form id="cmnt">
+    <fieldset>
+      <div class="form_grp">
+        <label>comment</label>
+        <textarea id="userCmnt" placeholder="Write your comment here. You can Edit and Delete options. Just Hover in Your comment, you see the both buttons"></textarea>        
+      </div>
+      <div class="form_grp">
+      <button type="button" id="submit">Submit</button>
+      </div>
+    </fieldset>
+  </form>  
+</div> 
+  <div id="cmntContr"></div>
+ </div> */}

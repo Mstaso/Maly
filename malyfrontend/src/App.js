@@ -5,6 +5,7 @@ import PostContainer from './Containers/PostContainer';
 import Welcome from './Components/Welcome'
 import NewForm from './Components/NewForm'
 import Navbar from './Components/Navbar'
+import UserShowPage from './Components/UserShowPage'
 
 const API = "http://localhost:3000/posts"
 
@@ -13,7 +14,8 @@ class App extends React.Component {
 
   state = {
     postArray: [],
-    post: {}
+    post: {},
+    searchValue: "",
   }
 
   fetchPosts = () => {
@@ -63,15 +65,26 @@ class App extends React.Component {
     .then(newPostData => this.setState({ postArray: [...this.state.postArray,newPostData] }))
   }
 
+  changeHandler = (e) => {
+    this.setState({ searchValue: e.target.value })
+  }
+
+  filteredArray = () => {
+    return this.state.postArray.filter(post => post.category.toLowerCase().includes(this.state.searchValue.toLowerCase()))
+  }
+
+
+
   render(){
     return (
       <>
           <BrowserRouter>
-            <Navbar />
+            <Navbar searchValue={this.state.searchValue} changeHandler={this.changeHandler} />
             <Switch>
               <Route path="/welcome" component ={Welcome} />
               <Route path="/newform" render={() => <NewForm fetchNewPost={this.fetchNewPost} />} />
-              <Route path="/posts" render={() => <PostContainer postArray={this.state.postArray} appClickHandler={this.appClickHandler} individualPost= {this.state.post} commentUpdater={this.commentUpdater}/>} />
+              <Route path="/profile" component={UserShowPage} />
+              <Route path="/posts" render={() => <PostContainer postArray={this.filteredArray()} appClickHandler={this.appClickHandler} individualPost= {this.state.post} commentUpdater={this.commentUpdater}/>} />
             </Switch>
           </BrowserRouter>
       </>
