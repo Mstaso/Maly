@@ -25,6 +25,10 @@ state = {
         this.props.appClickHandler(this.props.post)
     }
 
+    favHandler = () => {
+        this.props.favHandler(this.props.post)
+    }
+
     render(){
         return(
             <>
@@ -44,6 +48,7 @@ state = {
                 <div>
                 <div className="modal" className="modal_content">
                 <div>
+                    <button onClick={this.favHandler} >Fav</button>
                     <img id="postImg" src={this.props.post.image} />
                     <h4>Rating: {this.props.post.rating}/5 </h4>
                     <h4>Likes: {this.props.post.likes}</h4>

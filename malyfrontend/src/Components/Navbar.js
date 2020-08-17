@@ -24,7 +24,6 @@ class Navbar extends React.Component {
         <li><a href="#"><NavLink to="/posts" exact>Home</NavLink></a></li>
         <li><a href="#"><NavLink to="/newform" exact>New Post</NavLink></a></li>
         <li><a href="#"><NavLink to="/profile" exact>Profile</NavLink></a></li>
-        <li><a href="#"><NavLink to="/signup" exact>Create an Account</NavLink></a></li>
         </ul>
       </div>
     )

@@ -18,7 +18,8 @@ class App extends React.Component {
     postArray: [],
     post: {},
     searchValue: "",
-    user: null
+    user: null, 
+    favorites: []
   }
 
   fetchPosts = () => {
@@ -101,7 +102,6 @@ class App extends React.Component {
   }
 
   loginHandler = (userInfo) => {
-  console.log("logging in", userInfo)
     fetch('http://localhost:3000/login',{
       method: 'POST',
       headers: {
@@ -115,6 +115,24 @@ class App extends React.Component {
     .then(this.fetchPosts)
   }
 
+  favHandler = (favObj) => {
+    fetch("http://localhost:3000/favorites", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      body: JSON.stringify({
+        favorite: {
+          user_id: this.state.user.id,
+          post_id: favObj.id
+        }
+      })
+    })
+    .then(response => response.json())
+    .then(favData => this.setState({ favorites:favData }))
+  }
+
 
   render(){
     return (
@@ -124,10 +142,10 @@ class App extends React.Component {
             <Switch>
               <Route path="/login" render={() => <Login submitHandler={this.loginHandler} />} />
               <Route path="/signup" render={() => <SignUp submitHandler={this.signUpHandler} />} />
-              <Route path="/welcome" component ={Welcome} />
+              <Route path="/welcome" render={() => <Welcome submitHandler={this.loginHandler} />} />
               <Route path="/newform" render={() => <NewForm user={this.state.user} fetchNewPost={this.fetchNewPost} />} />
               <Route path="/profile" render={() => <UserShowPage user={this.state.user} />} />
-              <Route path="/posts" render={() => <PostContainer user={this.state.user} postArray={this.filteredArray()} appClickHandler={this.appClickHandler} individualPost= {this.state.post} commentUpdater={this.commentUpdater}/>} />
+              <Route path="/posts" render={() => <PostContainer favHandler={this.favHandler} user={this.state.user} postArray={this.filteredArray()} appClickHandler={this.appClickHandler} individualPost= {this.state.post} commentUpdater={this.commentUpdater}/>} />
             </Switch>
           </BrowserRouter>
       </>

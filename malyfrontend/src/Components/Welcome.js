@@ -1,9 +1,14 @@
 import React from 'react'
+import SignUp from './SignUp'
+import Login from './Login'
 
-function Welcome(){
+function Welcome(props){
 
     return(
-        <h1>Welcome</h1>
+        <div>
+            {/* <SignUp /> */}
+            <Login submitHandler={props.submitHandler} />
+        </div>
     )
 }
 

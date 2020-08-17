@@ -6,7 +6,7 @@ class PostContainer extends React.Component{
 
 
     posts = () => {
-        return this.props.postArray.map(post => {return <Post key={post.id} post={post} appClickHandler={this.props.appClickHandler} individualPost={this.props.individualPost} />})
+        return this.props.postArray.map(post => {return <Post key={post.id} post={post} appClickHandler={this.props.appClickHandler} individualPost={this.props.individualPost} favHandler={this.props.favHandler} />})
     }
 
     render(){
@@ -28,7 +28,7 @@ class PostContainer extends React.Component{
                                     <Route path='/posts/:id' render={({match}) => {
                                         let id = parseInt(match.params.id)
                                         let foundPost = this.props.postArray.find(post => post.id === id)
-                                        return <Post post={foundPost} appClickHandler={this.props.appClickHandler} commentUpdater={this.props.commentUpdater}/>
+                                        return <Post post={foundPost} appClickHandler={this.props.appClickHandler} commentUpdater={this.props.commentUpdater} favHandler={this.props.favHandler} />
                                     }}/>
             
                                     </Switch>

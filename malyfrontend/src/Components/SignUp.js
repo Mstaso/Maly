@@ -17,7 +17,6 @@ class SignUp extends React.Component{
     }
 
     render(){
-        console.log(this.state)
         return(
             <form onSubmit={this.submitHandler}>
                 <input type="text" name="username" placeholder="Username" value={this.state.username} onChange={this.changeHandler} />
