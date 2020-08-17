@@ -319,7 +319,7 @@ fieldset {
 .searchContainer {
   top: 10%;
   left: 40%;
-  width:50%;
+  width:35%;
  
   margin-top: 0em; /*set to a negative number 1/2 of your height*/
   margin-left: -35em; /*set to a negative number 1/2 of your width*/

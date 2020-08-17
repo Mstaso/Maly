@@ -7,6 +7,7 @@ import NewForm from './Components/NewForm'
 import Navbar from './Components/Navbar'
 import UserShowPage from './Components/UserShowPage'
 import SignUp from './Components/SignUp'
+import Login from './Components/Login'
 
 const API = "http://localhost:3000/posts"
 
@@ -74,6 +75,7 @@ class App extends React.Component {
   }
 
   filteredArray = () => {
+    console.log(this.state.postArray)
     return this.state.postArray.filter(post => post.category.toLowerCase().includes(this.state.searchValue.toLowerCase()))
   }
 
@@ -91,10 +93,26 @@ class App extends React.Component {
 })
   .then(response => response.json())
   .then(data => this.setState({ user:data.user }))
+  .then(this.fetchPosts)
   }
 
   signUpHandler = (userObj) => {
     this.fetchNewUser(userObj)
+  }
+
+  loginHandler = (userInfo) => {
+  console.log("logging in", userInfo)
+    fetch('http://localhost:3000/login',{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      body: JSON.stringify({user: userInfo})
+    })
+    .then(response => response.json())
+    .then(response => this.setState({user: response}))
+    .then(this.fetchPosts)
   }
 
 
@@ -104,6 +122,7 @@ class App extends React.Component {
           <BrowserRouter>
             <Navbar user={this.state.user} searchValue={this.state.searchValue} changeHandler={this.changeHandler} />
             <Switch>
+              <Route path="/login" render={() => <Login submitHandler={this.loginHandler} />} />
               <Route path="/signup" render={() => <SignUp submitHandler={this.signUpHandler} />} />
               <Route path="/welcome" component ={Welcome} />
               <Route path="/newform" render={() => <NewForm user={this.state.user} fetchNewPost={this.fetchNewPost} />} />
