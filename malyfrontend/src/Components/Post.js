@@ -40,9 +40,10 @@ state = {
                     </figure>
                 </div>
                 </NavLink>: 
-
-                <div class="flex-container">
-                <div class="flex-child magenta">
+                
+                <div>
+                <div className="modal" className="modal_content">
+                <div>
                     <img id="postImg" src={this.props.post.image} />
                     <h4>Rating: {this.props.post.rating}/5 </h4>
                     <h4>Likes: {this.props.post.likes}</h4>
@@ -71,7 +72,7 @@ state = {
                         </form>  */}
                     </div>
                 </div>
-                <div class="flex-child green">
+                <div>
                     <h1 style={{display: 'flex', justifyContent: 'center'}}>
                         {this.props.post.name}
                     </h1>
@@ -80,6 +81,7 @@ state = {
                     <h4>Brand: {this.props.post.brand}</h4>
                     <p>{this.props.post.description}</p>  
                 </div> 
+                </div>
                 </div>
 
             }

@@ -1,6 +1,6 @@
 import React from 'react'
 import Post from '../Components/Post'
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 class PostContainer extends React.Component{
 
@@ -10,31 +10,39 @@ class PostContainer extends React.Component{
     }
 
     render(){
-
         return(
             <>
-                {this.props.postArray.length === 0 ? <h1>Loading</h1>:
-                <>
-                    <BrowserRouter>
-                        <Switch>
-                            <Route exact path="/posts" render={() => {
-                                return(
-                                    <div id="columns">
-                                        {this.posts()}
-                                    </div>
-                                )
-                            }} />
-                        <Route path='/posts/:id' render={({match}) => {
-                            let id = parseInt(match.params.id)
-                            let foundPost = this.props.postArray.find(post => post.id === id)
-                            return <Post post={foundPost} appClickHandler={this.props.appClickHandler} commentUpdater={this.props.commentUpdater}/>
-                        }}/>
+                {this.props.user ? 
+                            <>
+                            {this.props.postArray.length === 0 ? <h1>Loading</h1>:
+                            <>
+                                <BrowserRouter>
+                                    <Switch>
+                                        <Route exact path="/posts" render={() => {
+                                            return(
+                                                <div id="columns">
+                                                    {this.posts()}
+                                                </div>
+                                            )
+                                        }} />
+                                    <Route path='/posts/:id' render={({match}) => {
+                                        let id = parseInt(match.params.id)
+                                        let foundPost = this.props.postArray.find(post => post.id === id)
+                                        return <Post post={foundPost} appClickHandler={this.props.appClickHandler} commentUpdater={this.props.commentUpdater}/>
+                                    }}/>
+            
+                                    </Switch>
+                                </BrowserRouter>
+                            </>
+                            }
+                        </>
+                    : 
 
-                        </Switch>
-                    </BrowserRouter>
-                </>
+                    <Redirect to="/welcome" />
+                
                 }
             </>
+
         )
     }
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink, withRouter } from 'react-router-dom'
+import { NavLink, withRouter, Redirect } from 'react-router-dom'
 
 class NewForm extends React.Component {
 
@@ -27,35 +27,45 @@ class NewForm extends React.Component {
     }
 
     render(){
+        console.log("Current User: ", this.props.user)
         return(
-            <div class="form-container" >
-                <form id="contact" onSubmit={this.submitHandler}>
-                    <h3 style={{display: 'flex', justifyContent: 'center'}}>Create a new Post</h3>
-                    <fieldset>
-                    <input placeholder="Post Name" name="name" type='text' value={this.state.name} onChange={this.changeHandler} />
-                    </fieldset>
-                    <fieldset>
-                    <input placeholder="Post Categories" name='category' type='text' value={this.state.category} onChange={this.changeHandler}/>
-                    </fieldset>
-                    <fieldset>
-                    <input placeholder="Post Image" name='image' type='text' value={this.state.image} onChange={this.changeHandler}/>
-                    </fieldset>
-                    <fieldset>
-                    <input placeholder="Post Description" name='description' type='text' value={this.state.description} onChange={this.changeHandler}/>
-                    </fieldset>
-                    <fieldset>
-                    <input placeholder="Brand" name='brand' type='text' value={this.state.brand} onChange={this.changeHandler}/>
-                    </fieldset>
-                    <fieldset>
-                    <input placeholder="Your Rating" name='rating' type='text' value={this.state.rating} onChange={this.changeHandler}/>
-                    </fieldset>
-                    <fieldset>
-                    <input placeholder="Item Link" name='link' type='text' value={this.state.link} onChange={this.changeHandler}/>
-                    </fieldset>
-                    <input id="submitButton" type="submit" value="Create Post"/>
-                </form>
+            <>
+                {this.props.user ? 
+                            <div class="form-container" >
+                            <form id="contact" onSubmit={this.submitHandler}>
+                                <h3 style={{display: 'flex', justifyContent: 'center'}}>Create a new Post</h3>
+                                <fieldset>
+                                <input placeholder="Post Name" name="name" type='text' value={this.state.name} onChange={this.changeHandler} />
+                                </fieldset>
+                                <fieldset>
+                                <input placeholder="Post Categories" name='category' type='text' value={this.state.category} onChange={this.changeHandler}/>
+                                </fieldset>
+                                <fieldset>
+                                <input placeholder="Post Image" name='image' type='text' value={this.state.image} onChange={this.changeHandler}/>
+                                </fieldset>
+                                <fieldset>
+                                <input placeholder="Post Description" name='description' type='text' value={this.state.description} onChange={this.changeHandler}/>
+                                </fieldset>
+                                <fieldset>
+                                <input placeholder="Brand" name='brand' type='text' value={this.state.brand} onChange={this.changeHandler}/>
+                                </fieldset>
+                                <fieldset>
+                                <input placeholder="Your Rating" name='rating' type='text' value={this.state.rating} onChange={this.changeHandler}/>
+                                </fieldset>
+                                <fieldset>
+                                <input placeholder="Item Link" name='link' type='text' value={this.state.link} onChange={this.changeHandler}/>
+                                </fieldset>
+                                <input id="submitButton" type="submit" value="Create Post"/>
+                            </form>
+            
+                        </div>
+                :
 
-            </div>
+                <Redirect to="/welcome" />
+                
+                
+                }
+            </> 
         )
     }
 }
