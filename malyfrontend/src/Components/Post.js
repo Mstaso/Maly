@@ -28,10 +28,10 @@ state = {
 
     favHandler = () => {
         this.props.favHandler(this.props.post)
+        
     }
 
     render(){
-        console.log("User in post: ", this.props.user)
         return(
             <>
             {this.props.individualPost ? 

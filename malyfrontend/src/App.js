@@ -20,7 +20,7 @@ class App extends React.Component {
     post: {},
     searchValue: "",
     user: null, 
-    favorites: []
+    favArray: []
   }
 
   fetchPosts = () => {
@@ -40,7 +40,6 @@ class App extends React.Component {
   }
 
   commentUpdater = (id, content) => {
-    console.log(content, 'in app')
 
     let newComment = {
       content: content,
@@ -118,35 +117,29 @@ class App extends React.Component {
     })
   }
 
-
-//   .then(response => {
-//     this.props.setUser(response);
-//     this.props.currentUser ?  this.props.history.push('/profile') : alert('bleh')
-//     localStorage.token = response.token;
-// })
-
   favHandler = (favObj) => {
-    // fetch("http://localhost:3000/favorites", {
-    //   method: 'POST',
-    //   headers: .
-    //     'Content-Type': 'application/json',
-    //     Accept: 'application/json'
-    //   },
-    //   body: JSON.stringify({
-    //     favorite: {
-    //       user_id: this.state.user.id,
-    //       post_id: favObj.id
-    //     }
-    //   })
-    // })
-    // .then(response => response.json())
-    // .then(favData => this.setState({ favorites:favData }))
-    console.log(favObj)
+    let favPost = {
+      user_id: 1, 
+      post_id: favObj.id,
+      // fav_image: favObj.image,
+      // fav_name: favObj.name
+
+    }
+    fetch("http://localhost:3000/favorites", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      body: JSON.stringify(favPost)
+    })
+    .then(response => response.json())
+    .then(favData => this.setState({ favArray: [favData,...this.state.favArray] }))
+    console.log(favObj.name)
   }
 
 
   render(){
-    console.log("User in App: ", this.state.user)
     return (
       <>
           <BrowserRouter>
@@ -156,7 +149,7 @@ class App extends React.Component {
               <Route path="/signup" render={() => <SignUp submitHandler={this.signUpHandler} />} />
               <Route path="/welcome" render={() => <Welcome submitHandler={this.loginHandler} />} />
               <Route path="/newform" render={() => <NewForm user={this.state.user} fetchNewPost={this.fetchNewPost} />} />
-              <Route path="/profile" render={() => <UserShowPage user={this.state.user} />} />
+              <Route path="/profile" render={() => <UserShowPage user={this.state.user} favArray={this.state.favArray} />} />
               <Route path="/posts" render={() => <PostContainer favHandler={this.favHandler} user={this.state.user} postArray={this.filteredArray()} appClickHandler={this.appClickHandler} individualPost= {this.state.post} commentUpdater={this.commentUpdater}/>} />
             </Switch>
           </BrowserRouter>
