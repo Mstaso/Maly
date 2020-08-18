@@ -3,12 +3,30 @@ import SignUp from './SignUp'
 import Login from './Login'
 
 function Welcome(props){
+    
 
     return(
-        <div>
-            {/* <SignUp /> */}
+        <>
+            {/* <div id="app">
+                <falling/>
+            </div> */}
+            <div class="container-logo">
+                <div>
+                    <div class="loader">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
             <Login submitHandler={props.submitHandler} />
-        </div>
+        </>
     )
 }
 

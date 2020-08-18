@@ -14,7 +14,8 @@ class Login extends React.Component{
     submitHandler = (e) => {
         e.preventDefault()
         this.props.submitHandler(this.state)
-        this.props.history.push("/posts")
+        // this.props.history.push("/posts")
+        return <Redirect to="/posts" />
     }
 
     render(){
@@ -35,7 +36,9 @@ class Login extends React.Component{
     }
 }
 
-export default withRouter(Login)
+// export default withRouter(Login)
+
+export default Login
 
 
 

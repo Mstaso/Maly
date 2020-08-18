@@ -59,27 +59,27 @@
 
  /* Individual Post css */
 
- .post-container {
-  background-color: blue;
-  width:calc(100% - 50px);
-float:left;
+ /* .grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+} */
+
+.float-container {
+  border: 3px solid #fff;
+  padding: 20px;
 }
 
-.left-view {
-  width: 70%;
+.float-child {
+  width: 50%;
   float: left;
-  background-color: blueviolet;
-}
-
-.right-view {
-  width: 30%;
-  float: left;
-  background-color: burlywood;
+  padding: 20px;
+  line-height: 36px;
 }
 
  #postImg {
-  max-width: 50%;
-  max-height: 50%;
+  max-width: 100%;
+  max-height: 100%;
   margin-top: 0%;
   margin-left: 0%;
   border-radius: 30px;
@@ -477,8 +477,177 @@ margin-right:110px;
 
 }
 
-.button:hover {
-    background-color: rgb(14, 129, 224);
+
+/* #app{
+  height: 100vh;
+  width: 100vw;
+
+} */
+
+.container-logo {
+  height: 85vh;
+  width: 2000px;
+  /* width: 100vw; */
+  top: 0;
+  background: #fff;
+  right: 0;
+  bottom: 0;
+  position: relative;
+  left: 0;
+  overflow: hidden;
+}
+
+.loader {
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.loader span {
+  width: 128px;
+  height: 128px;
+    /* margin: -280px 40px 54px  -34px; */
+  background: url("https://cdn3.iconfinder.com/data/icons/streamline-icon-set-free-pack/48/Streamline-18-128.png");
+  opacity: 0;
+  -webkit-animation: loader 10s infinite linear;
+  -moz-animation: loader 10s infinite linear;
+  animation: loader 10s infinite linear;
+}
+
+.loader span:nth-child(5n+5) {
+  -webkit-animation-delay: 1.3s;
+  -moz-animation-delay: 1.3s;
+  animation-delay: 1.3s;
+}
+
+.loader span:nth-child(3n+2) {
+  -webkit-animation-delay: 1.5s;
+  -moz-animation-delay: 1.5s;
+  animation-delay: 1.5s;
+}
+
+.loader span:nth-child(2n+5) {
+  -webkit-animation-delay: 1.7s;
+  -moz-animation-delay: 1.7s;
+  animation-delay: 1.7s;
+}
+
+.loader span:nth-child(3n+10) {
+  -webkit-animation-delay: 2.7s;
+  -moz-animation-delay: 2.7s;
+  animation-delay: 2.7s;
+}
+
+.loader span:nth-child(7n+2) {
+  -webkit-animation-delay: 3.5s;
+  -moz-animation-delay: 3.5s;
+  animation-delay: 3.5s;
+}
+
+.loader span:nth-child(4n+5) {
+  -webkit-animation-delay: 5.5s;
+  -moz-animation-delay: 5.5s;
+  animation-delay: 5.5s;
+}
+
+.loader span:nth-child(3n+7) {
+  -webkit-animation-delay: 8s;
+  -moz-animation-delay: 8s;
+  animation-delay: 8s;
+}
+
+@keyframes loader {
+  0% {
+    width: 128px;
+    height: 128px;
+    opacity: 0;
+
+    -webkit-transform: translate(0, 0vh) rotateZ(0deg);
+  }
+  25% {
+    width: 128px;
+    height: 128px;
+    opacity: 1;
+
+    -webkit-transform: translate(0, 25vh) rotateZ(90deg);
+  }
+  75% {
+    width: 128px;
+    height: 128px;
+    opacity: 1;
+
+    -webkit-transform: translate(5vw, 75vh) rotateZ(270deg);
+  }
+  100% {
+    width: 128px;
+    height: 128px;
+    opacity: 0;
+
+    -webkit-transform: translate(10vw, 100vh) rotateZ(360deg);
+  }
+}
+
+@-webkit-keyframes loader {
+  0% {
+    width: 128px;
+    height: 128px;
+    opacity: 0;
+
+    -webkit-transform: translate(0, 0vh) rotateZ(0deg);
+  }
+  25% {
+    width: 128px;
+    height: 128px;
+    opacity: 1;
+
+    -webkit-transform: translate(0, 25vh) rotateZ(90deg);
+  }
+  75% {
+    width: 128px;
+    height: 128px;
+    opacity: 1;
+
+    -webkit-transform: translate(5vw, 75vh) rotateZ(270deg);
+  }
+  100% {
+    width: 128px;
+    height: 128px;
+    opacity: 0;
+
+    -webkit-transform: translate(10vw, 100vh) rotateZ(360deg);
+  }
+}
+
+@-moz-keyframes loader {
+  0% {
+    width: 128px;
+    height: 128px;
+    opacity: 0;
+
+    -webkit-transform: translate(0, 0vh) rotateZ(0deg);
+  }
+  25% {
+    width: 128px;
+    height: 128px;
+    opacity: 1;
+
+    -webkit-transform: translate(0, 25vh) rotateZ(90deg);
+  }
+  75% {
+    width: 128px;
+    height: 128px;
+    opacity: 1;
+
+    -webkit-transform: translate(5vw, 75vh) rotateZ(270deg);
+  }
+  100% {
+    width: 128px;
+    height: 128px;
+    opacity: 0;
+
+    -webkit-transform: translate(10vw, 100vh) rotateZ(360deg);
+  }
 }
 
 

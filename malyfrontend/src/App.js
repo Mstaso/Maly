@@ -8,6 +8,7 @@ import Navbar from './Components/Navbar'
 import UserShowPage from './Components/UserShowPage'
 import SignUp from './Components/SignUp'
 import Login from './Components/Login'
+import { Redirect } from 'react-router'
 
 const API = "http://localhost:3000/posts"
 
@@ -76,7 +77,6 @@ class App extends React.Component {
   }
 
   filteredArray = () => {
-    console.log(this.state.postArray)
     return this.state.postArray.filter(post => post.category.toLowerCase().includes(this.state.searchValue.toLowerCase()))
   }
 
@@ -111,36 +111,48 @@ class App extends React.Component {
       body: JSON.stringify({user: userInfo})
     })
     .then(response => response.json())
-    .then(response => this.setState({user: response}))
-    .then(this.fetchPosts)
+    .then(response => {
+      this.setState({user: response});
+      this.fetchPosts()
+      // return this.state.user ? <Redirect to="/posts" /> : alert('bleh') 
+    })
   }
 
+
+//   .then(response => {
+//     this.props.setUser(response);
+//     this.props.currentUser ?  this.props.history.push('/profile') : alert('bleh')
+//     localStorage.token = response.token;
+// })
+
   favHandler = (favObj) => {
-    fetch("http://localhost:3000/favorites", {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      },
-      body: JSON.stringify({
-        favorite: {
-          user_id: this.state.user.id,
-          post_id: favObj.id
-        }
-      })
-    })
-    .then(response => response.json())
-    .then(favData => this.setState({ favorites:favData }))
+    // fetch("http://localhost:3000/favorites", {
+    //   method: 'POST',
+    //   headers: .
+    //     'Content-Type': 'application/json',
+    //     Accept: 'application/json'
+    //   },
+    //   body: JSON.stringify({
+    //     favorite: {
+    //       user_id: this.state.user.id,
+    //       post_id: favObj.id
+    //     }
+    //   })
+    // })
+    // .then(response => response.json())
+    // .then(favData => this.setState({ favorites:favData }))
+    console.log(favObj)
   }
 
 
   render(){
+    console.log("User in App: ", this.state.user)
     return (
       <>
           <BrowserRouter>
             <Navbar user={this.state.user} searchValue={this.state.searchValue} changeHandler={this.changeHandler} />
             <Switch>
-              <Route path="/login" render={() => <Login submitHandler={this.loginHandler} />} />
+              <Route path="/login" render={(RouterProps) => <Login {...RouterProps} submitHandler={this.loginHandler} />} />
               <Route path="/signup" render={() => <SignUp submitHandler={this.signUpHandler} />} />
               <Route path="/welcome" render={() => <Welcome submitHandler={this.loginHandler} />} />
               <Route path="/newform" render={() => <NewForm user={this.state.user} fetchNewPost={this.fetchNewPost} />} />
@@ -152,6 +164,7 @@ class App extends React.Component {
     )
   }
 }
+
 
 export default App;
 

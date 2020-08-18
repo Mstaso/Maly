@@ -27,7 +27,6 @@ class NewForm extends React.Component {
     }
 
     render(){
-        console.log("Current User: ", this.props.user)
         return(
             <>
                 {this.props.user ? 
