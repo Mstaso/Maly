@@ -2,7 +2,7 @@ import React from 'react'
 
 function Comment(props){
     return(
-        <div>
+        <div id="individualComment">
         {props.comment.content}
         </div>
     )

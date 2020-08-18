@@ -12,6 +12,7 @@ state = {
         e.preventDefault()
         let id = e.target.id
         this.props.commentUpdater(id, this.state.content)
+        this.setState({ content: " " })
     }
 
     changeHandler = (e) => {
@@ -28,7 +29,7 @@ state = {
 
     favHandler = () => {
         this.props.favHandler(this.props.post)
-        
+
     }
 
     render(){
@@ -53,7 +54,6 @@ state = {
                             <h4>Rating: {this.props.post.rating}/5 </h4>
                             <h4>Likes: {this.props.post.likes}</h4>
                             <div>
-                                <h2>Comments</h2>
                                     <div class="wrapper">
                                     <div class="commentBoxfloat">
                                     <form id="cmnt" id={this.props.post.id} onSubmit={this.commentHandler}>
@@ -68,13 +68,8 @@ state = {
                                         </fieldset>
                                     </form>  
                                     </div> 
-                                    <div id="cmntContr"></div>
-                                    <div>{this.comments()}</div> 
+                                    <div id="cmntContr">{this.comments()}</div> 
                                     </div>
-                                {/* <form id={this.props.post.id} onSubmit={this.commentHandler}>
-                                <input type='text' name='content' value={this.state.content} onChange={this.changeHandler}/>
-                                <input type="submit" value="Add Comment"/>
-                                </form>  */}
                             </div>
                         </div>
                         <div class="float-child">
