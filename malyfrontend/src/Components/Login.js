@@ -11,18 +11,45 @@ class Login extends React.Component{
         this.setState({ [e.target.name]: e.target.value })
     }
 
-    submitHandler = (e) => {
+    loginHandler = (e) => {
         e.preventDefault()
-        this.props.submitHandler(this.state)
-        // this.props.history.push("/posts")
-        return <Redirect to="/posts" />
-    }
+        fetch('http://localhost:3000/login',{
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json'
+          },
+          body: JSON.stringify(this.state)
+        })
+        .then(response => response.json())
+        .then(response => {
+          this.props.setUser(response)
+          this.props.currentUser ? this.props.history.push('/posts') : alert('nope')
+          this.props.fetchPosts()
+        })
+      }
 
     render(){
         return(
-            <div class="form-container">
+          <>
+          <div class="container-logo">
+            <div>
+              <div class="loader">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                </div>
+                </div>
+                </div>
+                <div class="form-container">
                 <h1 class="title">Login</h1>
-                <form onSubmit={this.submitHandler}>
+                <form onSubmit={this.loginHandler}>
                     <div class="information-container">
                     <input type="text" name="username" placeholder="Username" value={this.state.username} onChange={this.changeHandler} />
                     </div>
@@ -32,6 +59,7 @@ class Login extends React.Component{
                     <input class="loginButton" type="submit" value="Login"/>
                 </form>
             </div>
+          </>
         )
     }
 }

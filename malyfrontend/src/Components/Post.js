@@ -28,7 +28,7 @@ state = {
     }
 
     favHandler = () => {
-        this.props.favHandler(this.props.post)
+        this.props.favHandler(this.props.post.id)
 
     }
 

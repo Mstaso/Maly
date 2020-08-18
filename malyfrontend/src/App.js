@@ -100,42 +100,19 @@ class App extends React.Component {
     this.fetchNewUser(userObj)
   }
 
-  loginHandler = (userInfo) => {
-    fetch('http://localhost:3000/login',{
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      },
-      body: JSON.stringify({user: userInfo})
-    })
-    .then(response => response.json())
-    .then(response => {
-      this.setState({user: response});
-      this.fetchPosts()
-      // return this.state.user ? <Redirect to="/posts" /> : alert('bleh') 
-    })
+  setUser = (user) => {
+    this.setState({ user:user })
   }
 
-  favHandler = (favObj) => {
-    let favPost = {
-      user_id: 1, 
-      post_id: favObj.id,
-      // fav_image: favObj.image,
-      // fav_name: favObj.name
+  favHandler = (id) => {
+    let newFavArray = [...this.state.postArray]
+    let foundObj = newFavArray.find(post => post.id === id)
+    foundObj.favorite = !foundObj.favorite
+    this.setState({ postArray: newFavArray })
+  }
 
-    }
-    fetch("http://localhost:3000/favorites", {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      },
-      body: JSON.stringify(favPost)
-    })
-    .then(response => response.json())
-    .then(favData => this.setState({ favArray: [favData,...this.state.favArray] }))
-    console.log(favObj.name)
+  filteredPosts = () => {
+    return this.state.postArray.filter(post => post.favorite)
   }
 
 
@@ -145,11 +122,11 @@ class App extends React.Component {
           <BrowserRouter>
             <Navbar user={this.state.user} searchValue={this.state.searchValue} changeHandler={this.changeHandler} />
             <Switch>
-              <Route path="/login" render={(RouterProps) => <Login {...RouterProps} submitHandler={this.loginHandler} />} />
+              <Route path="/login" render={(RouterProps) => <Login {...RouterProps} setUser={this.setUser} currentUser={this.state.user} fetchPosts={this.fetchPosts} />} />
               <Route path="/signup" render={() => <SignUp submitHandler={this.signUpHandler} />} />
-              <Route path="/welcome" render={() => <Welcome submitHandler={this.loginHandler} />} />
+              {/* <Route path="/welcome" render={() => <Welcome submitHandler={this.loginHandler} />} /> */}
               <Route path="/newform" render={() => <NewForm user={this.state.user} fetchNewPost={this.fetchNewPost} />} />
-              <Route path="/profile" render={() => <UserShowPage user={this.state.user} favArray={this.state.favArray} />} />
+              <Route path="/profile" render={() => <UserShowPage user={this.state.user} favArray={this.filteredPosts()} />} />
               <Route path="/posts" render={() => <PostContainer favHandler={this.favHandler} user={this.state.user} postArray={this.filteredArray()} appClickHandler={this.appClickHandler} individualPost= {this.state.post} commentUpdater={this.commentUpdater}/>} />
             </Switch>
           </BrowserRouter>

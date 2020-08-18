@@ -30,7 +30,7 @@ class NewForm extends React.Component {
         return(
             <>
                 {this.props.user ? 
-                            <div class="form-container" >
+                            <div class="newForm-container" >
                             <form id="contact" onSubmit={this.submitHandler}>
                                 <h3 style={{display: 'flex', justifyContent: 'center'}}>Create a new Post</h3>
                                 <fieldset>
@@ -54,13 +54,13 @@ class NewForm extends React.Component {
                                 <fieldset>
                                 <input placeholder="Item Link" name='link' type='text' value={this.state.link} onChange={this.changeHandler}/>
                                 </fieldset>
-                                <input id="submitButton" type="submit" value="Create Post"/>
+                                <input type="submit" value="Create Post"/>
                             </form>
             
                         </div>
                 :
 
-                <Redirect to="/welcome" />
+                <Redirect to="/login" />
                 
                 
                 }

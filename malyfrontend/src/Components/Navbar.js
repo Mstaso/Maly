@@ -20,7 +20,7 @@ class Navbar extends React.Component {
         <h1 class="logo"><a href="#"><img id="logo" src={logo} /></a></h1>
         <Search searchValue={this.props.searchValue} changeHandler={this.props.changeHandler} />
         <ul class="main-nav" >
-        <li><a href="#"><NavLink to="/welcome" exact>Welcome</NavLink></a></li>
+        {/* <li><a href="#"><NavLink to="/welcome" exact>Welcome</NavLink></a></li> */}
         <li><a href="#"><NavLink to="/posts" exact>Home</NavLink></a></li>
         <li><a href="#"><NavLink to="/newform" exact>New Post</NavLink></a></li>
         <li><a href="#"><NavLink to="/profile" exact>Profile</NavLink></a></li>

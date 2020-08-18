@@ -39,7 +39,7 @@ class PostContainer extends React.Component{
                         </>
                     : 
 
-                    <Redirect to="/welcome" />
+                    <Redirect to="/login" />
                 
                 }
             </>

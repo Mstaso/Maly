@@ -1,18 +1,21 @@
 import React from 'react'
+import Favorite from './Favorite.js'
 import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 
 class UserShowPage extends React.Component{
     render(){
-        console.log("Fav Array from User Page: ", this.props.favArray)
+        
+        let favArray = this.props.favArray.map(fav => <Favorite key={fav.id} fav={fav} />)
+
         return(
             <>
                 {this.props.user ? 
 
                     <div>
-                    {/* <h1>Welcome {this.props.user.user.username}!!!</h1> */}
+                    {favArray}
                     </div>
                 : 
-                <Redirect to="/welcome" />
+                <Redirect to="/login" />
                 }
             </>
         )
