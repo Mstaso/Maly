@@ -23,7 +23,7 @@ class Navbar extends React.Component {
         {/* <li><a href="#"><NavLink to="/welcome" exact>Welcome</NavLink></a></li> */}
         <li><a href="#"><NavLink to="/posts" exact>Home</NavLink></a></li>
         <li><a href="#"><NavLink to="/newform" exact>New Post</NavLink></a></li>
-        <li><a href="#"><NavLink to="/profile" exact>Profile</NavLink></a></li>
+        <li><a href="#"><NavLink to="/profile" exact><span style={{fontSize:"30px"}}>🖤</span></NavLink></a></li>
         </ul>
       </div>
     )

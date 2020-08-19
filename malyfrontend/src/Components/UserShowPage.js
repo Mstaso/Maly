@@ -4,15 +4,16 @@ import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 
 class UserShowPage extends React.Component{
     render(){
-        
-        let favArray = this.props.favArray.map(fav => <Favorite key={fav.id} fav={fav} />)
+        console.log("Appclickhandler in usershowpage: ", this.props.appClickHandler)
+        let favArray = this.props.favArray.map(fav => <Favorite key={fav.id} fav={fav} appClickHandler={this.props.appClickHandler} />)
 
         return(
             <>
                 {this.props.user ? 
 
                     <div>
-                    {favArray}
+                        <h1 class="glow" style={{display: "flex", justifyContent: "center",alignItems: "center", color: "blue"}}>Favorites</h1>
+                        {favArray}
                     </div>
                 : 
                 <Redirect to="/login" />

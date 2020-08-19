@@ -159,6 +159,7 @@ max-width: 10%;
 max-height: 10%;
 margin-left: -55%;
 }
+
 /* ================================= 
 Media Queries
 ==================================== */
@@ -409,7 +410,7 @@ margin-right:110px;
     overflow:hidden;
     position:relative;
     background: #DCDCDC;
-    margin-top: -5%;
+    margin-top: -3%;
   }
   #individualComment{
     width:100%;
@@ -466,7 +467,7 @@ margin-right:110px;
 
 .container-logo {
   height: 85vh;
-  width: 2000px;
+  width: 1400px;
   /* width: 100vw; */
   top: 0;
   background: #fff;
@@ -629,5 +630,14 @@ margin-right:110px;
     -webkit-transform: translate(10vw, 100vh) rotateZ(360deg);
   }
 }
+
+
+/* Favorites css */
+
+.floatybox {
+  display: inline-block;
+  width: 300px;
+}
+
 
 

@@ -28,9 +28,18 @@ state = {
     }
 
     favHandler = () => {
+        this.props.post.fav = !this.props.post.fav
         this.props.favHandler(this.props.post.id)
-
     }
+
+    favBool = () => {
+        if(this.props.post.favorite === false){
+          return "Fav ❤️" 
+        }
+        else if(this.props.post.favorite === true){
+          return "Unfav 💔"
+        }
+      }
 
     render(){
         return(
@@ -42,7 +51,7 @@ state = {
                     <figure>
                         <img src={this.props.post.image} />
                     <figcaption>
-                        <p>{this.props.post.description}</p>
+                        <p>{this.props.post.name}</p>
                     </figcaption>
                     </figure>
                 </div>
@@ -52,7 +61,6 @@ state = {
                         <div class="float-child">
                             <img id="postImg" src={this.props.post.image} />
                             <h4>Rating: {this.props.post.rating}/5 </h4>
-                            <h4>Likes: {this.props.post.likes}</h4>
                             <div>
                                     <div class="wrapper">
                                     <div class="commentBoxfloat">
@@ -63,7 +71,7 @@ state = {
                                             <textarea id="userCmnt" placeholder="Write your comment here." name='content' value={this.state.content} onChange={this.changeHandler} ></textarea>        
                                         </div>
                                         <div class="form_grp">
-                                        <button type="button" id="submit"><input id="submit" type="submit"/></button>
+                                        <button type="submit">Add Comment</button>
                                         </div>
                                         </fieldset>
                                     </form>  
@@ -80,7 +88,7 @@ state = {
                             <h3>Furniture Category: {this.props.post.category}</h3>
                             <h4>Brand: {this.props.post.brand}</h4>
                             <p>{this.props.post.description}</p>  
-                            <button onClick={this.favHandler} >Fav</button>
+                            <button onClick={this.favHandler} >{this.favBool()}</button>
                         </div> 
                 </div>
 

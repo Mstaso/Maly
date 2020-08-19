@@ -126,7 +126,7 @@ class App extends React.Component {
               <Route path="/signup" render={() => <SignUp submitHandler={this.signUpHandler} />} />
               {/* <Route path="/welcome" render={() => <Welcome submitHandler={this.loginHandler} />} /> */}
               <Route path="/newform" render={() => <NewForm user={this.state.user} fetchNewPost={this.fetchNewPost} />} />
-              <Route path="/profile" render={() => <UserShowPage user={this.state.user} favArray={this.filteredPosts()} />} />
+              <Route path="/profile" render={() => <UserShowPage user={this.state.user} favArray={this.filteredPosts()} appClickHandler={this.appClickHandler} />} />
               <Route path="/posts" render={() => <PostContainer favHandler={this.favHandler} user={this.state.user} postArray={this.filteredArray()} appClickHandler={this.appClickHandler} individualPost= {this.state.post} commentUpdater={this.commentUpdater}/>} />
             </Switch>
           </BrowserRouter>

@@ -1,21 +1,30 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 
-function Favorite(props){
-    console.log(props)
-    return(
-       <>
-       <h1 style={{display: "flex", justifyContent: "center",alignItems: "center"}}>Favorites</h1>
-        <div id="columns" >
-        <figure>
-            <img src={props.fav.image} />
-        <figcaption>
-            <p>{props.fav.description}</p>
-        </figcaption>
-        </figure>
-        </div>
-        </>
-   
-    )
+class Favorite extends React.Component{
+
+    favClickHandler = () => {
+        this.props.appClickHandler(this.props.fav)
+    }
+
+
+    render(){
+        return(
+        <NavLink to={`/posts/${this.props.fav.id}`}>
+            <div className="floatybox" onClick={this.favClickHandler} >
+                <div id="columns" >
+                <figure>
+                    <img src={this.props.fav.image} />
+                <figcaption>
+                    <p>{this.props.fav.description}</p>
+                </figcaption>
+                </figure>
+                </div>
+            </div>
+        </NavLink>
+    
+        )
+    }
 }
 
 export default Favorite
