@@ -8,7 +8,7 @@ import Navbar from './Components/Navbar'
 import UserShowPage from './Components/UserShowPage'
 import SignUp from './Components/SignUp'
 import Login from './Components/Login'
-import { Redirect } from 'react-router'
+import { Redirect, NavLink } from 'react-router'
 
 const API = "http://localhost:3000/posts"
 
@@ -20,19 +20,37 @@ class App extends React.Component {
     post: {},
     searchValue: "",
     user: null, 
+    users: [],
     favArray: []
   }
 
   fetchPosts = () => {
     fetch(API)
     .then(response => response.json())
-    .then(postData => this.setState({ postArray: postData }))
+    .then(postData => {
+      console.log(postData)
+      this.setState({ postArray: postData })
+    })
   }
 
   componentDidMount(){
-    if (this.state.user){
-      this.fetchPosts()
-    }
+    // this.fetchUsers()
+    this.fetchPosts()
+    // if (this.state.user){
+    //   this.fetchPosts()
+    // }
+    const token = localStorage.getItem("token")
+  if (token) {
+    fetch('http://localhost:3000/profile', {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}`},
+    })
+    .then(resp => resp.json())
+    .then(data => {
+      console.log(data)
+      this.setUser(data.user)
+    })
+  } 
   }
 
   appClickHandler = (post_obj) => {
@@ -83,6 +101,7 @@ class App extends React.Component {
   // User Post Login 
 
   fetchNewUser = (userObj) => {
+    console.log(userObj)
     fetch('http://localhost:3000/users', {
   method: 'POST',
   headers: {
@@ -92,9 +111,22 @@ class App extends React.Component {
   body: JSON.stringify({ user:userObj })
 })
   .then(response => response.json())
-  .then(data => this.setState({ user:data.user }))
-  .then(this.fetchPosts)
+  .then(data => {
+    console.log(data)
+    this.setState({ user:data.user })
+    this.fetchPosts()
+  })
   }
+
+  fetchUsers = () => {
+    fetch('http://localhost:3000/users')
+    .then(response => response.json())
+    .then(response => {
+      this.setState({users: response})
+    })
+  }
+
+  
 
   signUpHandler = (userObj) => {
     this.fetchNewUser(userObj)
@@ -105,6 +137,7 @@ class App extends React.Component {
   }
 
   favHandler = (id) => {
+    console.log(id)
     let newFavArray = [...this.state.postArray]
     let foundObj = newFavArray.find(post => post.id === id)
     foundObj.favorite = !foundObj.favorite
@@ -122,8 +155,8 @@ class App extends React.Component {
           <BrowserRouter>
             <Navbar user={this.state.user} searchValue={this.state.searchValue} changeHandler={this.changeHandler} />
             <Switch>
-              <Route path="/login" render={(RouterProps) => <Login {...RouterProps} setUser={this.setUser} currentUser={this.state.user} fetchPosts={this.fetchPosts} />} />
-              <Route path="/signup" render={() => <SignUp submitHandler={this.signUpHandler} />} />
+              <Route path="/login" render={(RouterProps) => <Login {...RouterProps} setUser={this.setUser}  users={this.state.users} user={this.state.user} fetchPosts={this.fetchPosts} />} />
+              <Route path="/signup" render={() => <SignUp submitHandler={this.signUpHandler} setUser={this.setUser} user={this.state.user} />} />
               {/* <Route path="/welcome" render={() => <Welcome submitHandler={this.loginHandler} />} /> */}
               <Route path="/newform" render={() => <NewForm user={this.state.user} fetchNewPost={this.fetchNewPost} />} />
               <Route path="/profile" render={() => <UserShowPage user={this.state.user} favArray={this.filteredPosts()} appClickHandler={this.appClickHandler} />} />

@@ -12,20 +12,24 @@ class Login extends React.Component{
     }
 
     loginHandler = (e) => {
-        e.preventDefault()
+      console.log("been hit")
+        // e.preventDefault()
+        // this.props.loginUser(this.state)
+        // this.props.currentUser ? this.props.history.push('/posts') : alert('no user')
         fetch('http://localhost:3000/login',{
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             Accept: 'application/json'
           },
-          body: JSON.stringify(this.state)
+          body: JSON.stringify({user: this.state})
         })
         .then(response => response.json())
         .then(response => {
-          this.props.setUser(response)
-          this.props.currentUser ? this.props.history.push('/posts') : alert('nope')
-          this.props.fetchPosts()
+          localStorage.setItem("token", response.jwt)
+          this.props.setUser(response.user)
+          this.props.user ? this.props.history.push('/posts') : alert('user not found')
+          // this.props.fetchPosts()
         })
       }
 
@@ -49,7 +53,7 @@ class Login extends React.Component{
                 </div>
                 <div class="form-container">
                 <h1 class="title">Login</h1>
-                <form onSubmit={this.loginHandler}>
+                <form onSubmit={this.loginUser}>
                     <div class="information-container">
                     <input type="text" name="username" placeholder="Username" value={this.state.username} onChange={this.changeHandler} />
                     </div>
