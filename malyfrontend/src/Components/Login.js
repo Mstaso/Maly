@@ -13,7 +13,7 @@ class Login extends React.Component{
 
     loginHandler = (e) => {
       console.log("been hit")
-        // e.preventDefault()
+        e.preventDefault()
         // this.props.loginUser(this.state)
         // this.props.currentUser ? this.props.history.push('/posts') : alert('no user')
         fetch('http://localhost:3000/login',{
@@ -26,11 +26,16 @@ class Login extends React.Component{
         })
         .then(response => response.json())
         .then(response => {
+          console.log(response)
           localStorage.setItem("token", response.jwt)
           this.props.setUser(response.user)
           this.props.user ? this.props.history.push('/posts') : alert('user not found')
           // this.props.fetchPosts()
         })
+      }
+
+      clickHandler = () => {
+        this.props.history.push("/signup")
       }
 
     render(){
@@ -53,7 +58,7 @@ class Login extends React.Component{
                 </div>
                 <div class="form-container">
                 <h1 class="title">Login</h1>
-                <form onSubmit={this.loginUser}>
+                <form onSubmit={this.loginHandler}>
                     <div class="information-container">
                     <input type="text" name="username" placeholder="Username" value={this.state.username} onChange={this.changeHandler} />
                     </div>
@@ -62,6 +67,8 @@ class Login extends React.Component{
                     </div>
                     <input class="loginButton" type="submit" value="Login"/>
                 </form>
+                <p onClick={this.clickHandler}> Don't have an account?</p>
+                    
             </div>
           </>
         )

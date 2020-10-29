@@ -15,6 +15,14 @@ const API = "http://localhost:3000/posts"
 
 class App extends React.Component {
 
+  // constructor() {
+  //   super();
+  //   this.state = {
+  //     name: "React",
+  //     isUserAuthenticated: true
+  //   };
+  // }
+
   state = {
     postArray: [],
     post: {},
@@ -48,7 +56,7 @@ class App extends React.Component {
     .then(resp => resp.json())
     .then(data => {
       console.log(data)
-      this.setUser(data.user)
+      this.setUser(data.user)        
     })
   } 
   }
@@ -153,10 +161,20 @@ class App extends React.Component {
     return (
       <>
           <BrowserRouter>
-            <Navbar user={this.state.user} searchValue={this.state.searchValue} changeHandler={this.changeHandler} />
+            <Navbar user={this.state.user} searchValue={this.state.searchValue} changeHandler={this.changeHandler} setUser={this.setUser}/>
             <Switch>
+            <Route
+                exact
+                path="/"
+                render={() => {
+                    return (               
+                      <Redirect to="/posts" /> 
+                    )
+                }}
+              />
+              {/* <Route path="/login" render={() => <Login setUser={this.setUser}  users={this.state.users} user={this.state.user} fetchPosts={this.fetchPosts} />} /> */}
               <Route path="/login" render={(RouterProps) => <Login {...RouterProps} setUser={this.setUser}  users={this.state.users} user={this.state.user} fetchPosts={this.fetchPosts} />} />
-              <Route path="/signup" render={() => <SignUp submitHandler={this.signUpHandler} setUser={this.setUser} user={this.state.user} />} />
+              <Route path="/signup" render={(RouterProps) => <SignUp {...RouterProps} submitHandler={this.signUpHandler} setUser={this.setUser} user={this.state.user} />} />
               {/* <Route path="/welcome" render={() => <Welcome submitHandler={this.loginHandler} />} /> */}
               <Route path="/newform" render={() => <NewForm user={this.state.user} fetchNewPost={this.fetchNewPost} />} />
               <Route path="/profile" render={() => <UserShowPage user={this.state.user} favArray={this.filteredPosts()} appClickHandler={this.appClickHandler} />} />

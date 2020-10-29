@@ -13,7 +13,7 @@ class PostContainer extends React.Component{
         console.log(this.props)
         return(
             <>
-                {this.props.user ? 
+                
                             <>
                             {this.props.postArray.length === 0 ? <h1>Loading</h1>:
                             <>
@@ -37,11 +37,9 @@ class PostContainer extends React.Component{
                             </>
                             }
                         </>
-                    : 
-
-                    <Redirect to="/login" />
+                    
                 
-                }
+                
             </>
 
         )

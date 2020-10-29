@@ -432,6 +432,13 @@ margin-right:110px;
     left: 50%;
     transform: translate(-50%,-50%);
 }
+
+.form-container p {
+  position: relative;
+  top: 80px;
+  text-align: center;
+}
+
 .title  {
     color: grey;
     text-align: center;
@@ -467,7 +474,7 @@ margin-right:110px;
 
 .container-logo {
   height: 85vh;
-  width: 1400px;
+  width: 1500px;
   /* width: 100vw; */
   top: 0;
   background: #fff;

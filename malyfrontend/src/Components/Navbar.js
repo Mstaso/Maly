@@ -14,6 +14,12 @@ const link = {
 const logo = require('../logo.png')
 
 class Navbar extends React.Component {
+
+  logOutHandler = () => {
+    localStorage.removeItem("token")
+    this.props.setUser(null)
+  }
+  
   render() {
     return (
       <div class="header">
@@ -22,8 +28,13 @@ class Navbar extends React.Component {
         <ul class="main-nav" >
         {/* <li><a href="#"><NavLink to="/welcome" exact>Welcome</NavLink></a></li> */}
         <li><a href="#"><NavLink to="/posts" exact>Home</NavLink></a></li>
-        <li><a href="#"><NavLink to="/newform" exact>New Post</NavLink></a></li>
+        <li><a href="#"><NavLink to="/newform" exact>New Post</NavLink></a></li>   
         <li><a href="#"><NavLink to="/profile" exact><span style={{fontSize:"30px"}}>🖤</span></NavLink></a></li>
+        {this.props.user !== null ? 
+        <li onClick={this.logOutHandler}><a href="#"><NavLink to="/login" exact>Logout</NavLink></a></li>
+        :
+        <li><a href="#"><NavLink to="/login" exact>Login</NavLink></a></li>
+        }
         </ul>
       </div>
     )
