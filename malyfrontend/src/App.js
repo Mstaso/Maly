@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './App.css';
 import PostContainer from './Containers/PostContainer';
-import Welcome from './Components/Welcome'
+import UserContainer from './Containers/UserContainer';
 import NewForm from './Components/NewForm'
 import Navbar from './Components/Navbar'
 import UserShowPage from './Components/UserShowPage'
@@ -14,14 +14,6 @@ const API = "http://localhost:3000/posts"
 
 
 class App extends React.Component {
-
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     name: "React",
-  //     isUserAuthenticated: true
-  //   };
-  // }
 
   state = {
     postArray: [],
@@ -42,7 +34,7 @@ class App extends React.Component {
   }
 
   componentDidMount(){
-    // this.fetchUsers()
+    this.fetchUsers()
     this.fetchPosts()
     // if (this.state.user){
     //   this.fetchPosts()
@@ -135,6 +127,7 @@ class App extends React.Component {
     .then(response => response.json())
     .then(response => {
       this.setState({users: response})
+      console.log(response)
     })
   }
 
@@ -183,6 +176,7 @@ class App extends React.Component {
               <Route path="/newform" render={() => <NewForm user={this.state.user} fetchNewPost={this.fetchNewPost} />} />
               <Route path="/profile" render={() => <UserShowPage user={this.state.user} favArray={this.filteredPosts()} appClickHandler={this.appClickHandler} />} />
               <Route path="/posts" render={() => <PostContainer favHandler={this.favHandler} user={this.state.user} postArray={this.filteredArray()} appClickHandler={this.appClickHandler} individualPost= {this.state.post} commentUpdater={this.commentUpdater}/>} />
+              <Route path="/users" render={() => <UserContainer user={this.state.user} fetchUsers={this.fetchUsers} users={this.state.users}/>} />
             </Switch>
           </BrowserRouter>
       </>
