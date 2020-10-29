@@ -11,8 +11,12 @@ class NewForm extends React.Component {
         brand: '',
         rating: '',
         link: '',
-        user_id: 1
     }
+
+    // componentDidMount(){
+    //     // this.props.fetchUsers()
+    //     this.props.users.find(user => user.username === this.props.)
+    // }
 
     changeHandler = (e) => {
         this.setState({
@@ -22,7 +26,17 @@ class NewForm extends React.Component {
 
     submitHandler = (e) => {
         e.preventDefault()
-        this.props.fetchNewPost(this.state)
+        let postObj = {
+        name: this.state.name,
+        category: this.state.category,
+        image: this.state.image,
+        description: this.state.description,
+        brand: this.state.brand,
+        rating: this.state.rating,
+        link: this.state.link,
+        user_id: this.props.user.id
+        }
+        this.props.fetchNewPost(postObj)
         this.props.history.push("/posts");
     }
 

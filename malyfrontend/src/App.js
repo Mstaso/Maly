@@ -55,7 +55,6 @@ class App extends React.Component {
     })
     .then(resp => resp.json())
     .then(data => {
-      console.log(data)
       this.setUser(data.user)        
     })
   } 
@@ -85,6 +84,7 @@ class App extends React.Component {
   }
 
   fetchNewPost=(obj)=>{
+    console.log(obj)
     fetch('http://localhost:3000/posts', {
       method: 'POST',
       headers: {
@@ -94,7 +94,11 @@ class App extends React.Component {
       body: JSON.stringify(obj)
     })
     .then(response => response.json())
-    .then(newPostData => this.setState({ postArray: [...this.state.postArray,newPostData] }))
+    .then(newPostData => 
+      {
+        console.log(newPostData)
+        this.setState({ postArray: [...this.state.postArray,newPostData] })
+      })
   }
 
   changeHandler = (e) => {
