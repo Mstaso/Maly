@@ -141,12 +141,27 @@ class App extends React.Component {
     this.setState({ user:user })
   }
 
-  favHandler = (id) => {
-    console.log(id)
-    let newFavArray = [...this.state.postArray]
-    let foundObj = newFavArray.find(post => post.id === id)
-    foundObj.favorite = !foundObj.favorite
-    this.setState({ postArray: newFavArray })
+  favHandler = (post_id) => {
+    console.log(post_id)
+    let favObj = {
+      post_id: post_id,
+      user_id: this.state.user.id
+    }
+    fetch('http://localhost:3000/favorites', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+        },
+        body: JSON.stringify({ favorite: favObj })
+      })
+        .then(response => response.json())
+        .then(response => console.log(response))
+
+    // let newFavArray = [...this.state.postArray]
+    // let foundObj = newFavArray.find(post => post.id === id)
+    // foundObj.favorite = !foundObj.favorite
+    // this.setState({ postArray: newFavArray })
   }
 
   filteredPosts = () => {
