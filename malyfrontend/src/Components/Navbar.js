@@ -18,6 +18,7 @@ class Navbar extends React.Component {
   logOutHandler = () => {
     localStorage.removeItem("token")
     this.props.setUser(null)
+    this.props.clearFavoriteStateOnLogOut()
   }
   
   render() {

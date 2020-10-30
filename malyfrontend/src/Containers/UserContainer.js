@@ -5,7 +5,7 @@ import User from '../Components/User'
 class UserContainer extends React.Component {
 
     componentDidMount(){
-
+       
     }
 
     render() {
@@ -16,7 +16,12 @@ class UserContainer extends React.Component {
                  <Switch>
                 <Route path='/users/:id' render={({ match }) => {
                     let id = parseInt(match.params.id)
-                    let foundUser = this.props.users.find(user => user.id === id)
+                    // see if id is in state of users, will not be if user just signed up
+                    let checkUser = this.props.users.find(user => user.id === id)
+                    let foundUser = {}
+                    // if unable to find user, use ID of the currently logged in User
+                    checkUser === undefined ? foundUser = this.props.user : foundUser = checkUser
+                    
                     return (
                         
                         <User foundUser={foundUser} favoritePosts={this.props.favoritePosts}/>

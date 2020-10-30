@@ -194,13 +194,16 @@ class App extends React.Component {
         })
   }
 
+  clearFavoriteStateOnLogOut = () => {
+    this.setState({favoritePosts: []})
+  }
 
 
   render(){
     return (
       <>
           <BrowserRouter>
-            <Navbar user={this.state.user} searchValue={this.state.searchValue} changeHandler={this.changeHandler} setUser={this.setUser}/>
+            <Navbar user={this.state.user} searchValue={this.state.searchValue} changeHandler={this.changeHandler} setUser={this.setUser} clearFavoriteStateOnLogOut={this.clearFavoriteStateOnLogOut}/>
             <Switch>
             <Route
                 exact
@@ -217,7 +220,7 @@ class App extends React.Component {
               {/* <Route path="/welcome" render={() => <Welcome submitHandler={this.loginHandler} />} /> */}
               <Route path="/newform" render={() => <NewForm user={this.state.user} fetchNewPost={this.fetchNewPost} />} />
               {/* <Route path="/profile" render={() => <UserShowPage user={this.state.user} favArray={this.filteredPosts()} appClickHandler={this.appClickHandler} />} /> */}
-              <Route path="/posts" render={() => <PostContainer favHandler={this.favHandler} user={this.state.user} deleteFavorite={this.deleteFavorite} filteredArray={this.filteredArray()} commentUpdater={this.commentUpdater}/>} />
+              <Route path="/posts" render={() => <PostContainer favHandler={this.favHandler} user={this.state.user} deleteFavorite={this.deleteFavorite} filteredArray={this.filteredArray()} favoritePosts={this.state.favoritePosts} commentUpdater={this.commentUpdater}/>} />
               <Route path="/users" render={() => <UserContainer user={this.state.user} fetchUsers={this.fetchUsers} favoritePosts={this.state.favoritePosts} users={this.state.users}/>} />
             </Switch>
           </BrowserRouter>

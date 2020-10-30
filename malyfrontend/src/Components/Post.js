@@ -39,7 +39,7 @@ state = {
     favBool = () => {
         if (this.props.foundPost){
             // console.log(this.props.foundUser)
-            let isFavorited = this.props.user.posts.find(post => post.id === this.props.foundPost.id)
+            let isFavorited = this.props.favoritePosts.find(post => post.id === this.props.foundPost.id)
             if (isFavorited) {
                 this.setState({favorite: true})
             } 
