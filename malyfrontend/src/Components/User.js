@@ -6,7 +6,9 @@ class User extends React.Component {
 
 
     renderPosts = () => {
-        this.props.foundUser.posts.map(post => <Post key={post.id} post={post} />)
+        console.log(this.props.foundUser)
+       let usersFavoritePosts = this.props.foundUser.posts.map(post => <Post key={post.id} post={post} />)
+       return usersFavoritePosts
     }
 
     render(){
@@ -22,7 +24,9 @@ class User extends React.Component {
             
             <div>
         <h1 class="glow" style={{display: "flex", justifyContent: "center",alignItems: "center", color: "blue"}}> {this.props.foundUser.username[0].toUpperCase() + this.props.foundUser.username.slice(1)}'s Favorites </h1>
+        <div id="columns">
             {this.renderPosts()}
+        </div>
         </div>
         )
     }

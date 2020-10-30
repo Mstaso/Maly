@@ -25,11 +25,7 @@ state = {
     }
     
     comments = () => {
-        return this.props.post.comments.map(comment => {return <Comment key={comment.id} comment={comment} />})
-    }
-
-    postClickHandler = () => {
-        this.props.appClickHandler(this.props.post)
+        return this.props.foundPost.comments.map(comment => {return <Comment key={comment.id} comment={comment} />})
     }
 
     favHandler = (e) => {
@@ -49,8 +45,8 @@ state = {
     }
 
     favBool = () => {
-        if (this.props.user){
-            let isFavorited = this.props.user.posts.find(post => post.id === this.props.post.id)
+        if (this.props.foundUser){
+            let isFavorited = this.props.foundUser.posts.find(post => post.id === this.props.post.id)
             if (isFavorited) {
                 this.setState({favorite: true})
             } 
@@ -60,10 +56,10 @@ state = {
                             
 
     render(){
-
+        console.log(this.props, 'from post')
         return(
             <>
-            {this.props.individualPost ? 
+            {this.props.post ? 
                 
                 <NavLink to={`/posts/${this.props.post.id}`}>
                 <div onClick={this.postClickHandler} >
@@ -74,16 +70,18 @@ state = {
                     </figcaption>
                     </figure>
                 </div>
-                </NavLink>: 
+                </NavLink>
+                
+                : 
                 
                 <div  class="float-container" className="modal_content">
                         <div class="float-child">
-                            <img id="postImg" src={this.props.post.image} />
-                            <h4>Rating: {this.props.post.rating}/5 </h4>
+                            <img id="postImg" src={this.props.foundPost.image} />
+                            <h4>Rating: {this.props.foundPost.rating}/5 </h4>
                             <div>
                                     <div class="wrapper">
                                     <div class="commentBoxfloat">
-                                    <form id="cmnt" id={this.props.post.id} onSubmit={this.commentHandler}>
+                                    <form id="cmnt" id={this.props.foundPost.id} onSubmit={this.commentHandler}>
                                         <fieldset id="commentFieldset">
                                         <div class="form_grp">
                                             <label>comment</label>
@@ -101,12 +99,12 @@ state = {
                         </div>
                         <div class="float-child">
                             <h1 style={{display: 'flex', justifyContent: 'center'}}>
-                                {this.props.post.name}
+                                {this.props.foundPost.name}
                             </h1>
                             <br/>
-                            <h3>Furniture Category: {this.props.post.category}</h3>
-                            <h4>Brand: {this.props.post.brand}</h4>
-                            <p>{this.props.post.description}</p>
+                            <h3>Furniture Category: {this.props.foundPost.category}</h3>
+                            <h4>Brand: {this.props.foundPost.brand}</h4>
+                            <p>{this.props.foundPost.description}</p>
                             {this.state.favorite ? 
                             <button onClick={this.favHandler} > Unfav 💔 </button>
                             :
