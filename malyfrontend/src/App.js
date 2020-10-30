@@ -141,10 +141,14 @@ class App extends React.Component {
     this.setState({ user:user })
   }
 
-  favHandler = (post_id) => {
-    console.log(post_id)
+  favHandler = (post) => {
+    // console.log(post, this.state.user)
+    // let updatedUser = this.state.user.posts.push(post)
+    // console.log(updatedUser)
+    // this.setState({user: updatedUser})
+
     let favObj = {
-      post_id: post_id,
+      post_id: post.id,
       user_id: this.state.user.id
     }
     fetch('http://localhost:3000/favorites', {
@@ -156,7 +160,12 @@ class App extends React.Component {
         body: JSON.stringify({ favorite: favObj })
       })
         .then(response => response.json())
-        .then(response => console.log(response))
+        .then(response => {
+          console.log(response)
+          // let updatedUser = this.state.user.posts.push(response)
+          // console.log(updatedUser)
+          // this.setState({user: updatedUser})
+        })
 
     // let newFavArray = [...this.state.postArray]
     // let foundObj = newFavArray.find(post => post.id === id)

@@ -6,8 +6,13 @@ import { NavLink } from 'react-router-dom'
 class Post extends React.Component{
 
 state = {
-    content: ''
+    content: '',
+    favorite: false
 }
+
+    componentDidMount(){
+        this.favBool()
+    }
     commentHandler = (e) => {
         e.preventDefault()
         let id = e.target.id
@@ -27,21 +32,33 @@ state = {
         this.props.appClickHandler(this.props.post)
     }
 
-    favHandler = () => {
-        this.props.post.fav = !this.props.post.fav
-        this.props.favHandler(this.props.post.id)
+    favHandler = (e) => {
+        if(this.state.favorite === false){
+            this.props.favHandler(this.props.post)
+        }
+        this.setState({favorite: !this.state.favorite})
+        // console.log(e.target.text)
+        // if(e.target.text === "Fav ❤️"){
+        //     // this.props.favHandler(this.props.post)
+        //     this.setState({favorite: true})
+        // } else {
+        //     this.setState({favorite: false})
+        // }
     }
 
     favBool = () => {
-        if(this.props.post.favorite === false){
-          return "Fav ❤️" 
-        }
-        else if(this.props.post.favorite === true){
-          return "Unfav 💔"
+        if (this.props.user){
+            let isFavorited = this.props.user.posts.find(post => post.id === this.props.post.id)
+            if (isFavorited) {
+                this.setState({favorite: true})
+            } 
         }
       }
 
+                            
+
     render(){
+
         return(
             <>
             {this.props.individualPost ? 
@@ -87,8 +104,15 @@ state = {
                             <br/>
                             <h3>Furniture Category: {this.props.post.category}</h3>
                             <h4>Brand: {this.props.post.brand}</h4>
-                            <p>{this.props.post.description}</p>  
-                            <button onClick={this.favHandler} >{this.favBool()}</button>
+                            <p>{this.props.post.description}</p>
+                            {this.state.favorite ? 
+                            <button onClick={this.favHandler} > Unfav 💔 </button>
+                            :
+                            <button onClick={this.favHandler} > Fav ❤️  </button>
+                            } 
+                            
+                            
+                         
                         </div> 
                 </div>
 
