@@ -19,7 +19,7 @@ class UserContainer extends React.Component {
                     let foundUser = this.props.users.find(user => user.id === id)
                     return (
                         
-                        <User foundUser={foundUser} />
+                        <User foundUser={foundUser} favoritePosts={this.props.favoritePosts}/>
                        
                     )
                 }}/>

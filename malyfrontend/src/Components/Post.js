@@ -29,24 +29,17 @@ state = {
     }
 
     favHandler = (e) => {
-        if(this.state.favorite === false){
-            this.props.favHandler(this.props.post)
-        } else {
-            this.props.deleteFavorite(this.props.post)
-        }
+        //find whether to POST a new favorite request or to DELETE a previous favorite request
+        console.log(this.state.favorite)
+        this.state.favorite === false ? this.props.favHandler(this.props.foundPost) : this.props.deleteFavorite(this.props.foundPost)
+        //setState to change display of favorite button
         this.setState({favorite: !this.state.favorite})
-        // console.log(e.target.text)
-        // if(e.target.text === "Fav ❤️"){
-        //     // this.props.favHandler(this.props.post)
-        //     this.setState({favorite: true})
-        // } else {
-        //     this.setState({favorite: false})
-        // }
     }
 
     favBool = () => {
-        if (this.props.foundUser){
-            let isFavorited = this.props.foundUser.posts.find(post => post.id === this.props.post.id)
+        if (this.props.foundPost){
+            // console.log(this.props.foundUser)
+            let isFavorited = this.props.user.posts.find(post => post.id === this.props.foundPost.id)
             if (isFavorited) {
                 this.setState({favorite: true})
             } 
@@ -56,7 +49,7 @@ state = {
                             
 
     render(){
-        console.log(this.props, 'from post')
+ 
         return(
             <>
             {this.props.post ? 

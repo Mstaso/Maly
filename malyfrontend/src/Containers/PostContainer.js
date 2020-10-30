@@ -6,22 +6,21 @@ class PostContainer extends React.Component{
 
 
     posts = () => {
-        return this.props.postArray.map(post => {return <Post key={post.id} post={post} user={this.props.user} />})
+        return this.props.filteredArray.map(post => {return <Post key={post.id} post={post} user={this.props.user} />})
     }
 
     render(){
-
         return(
             <>
                 
                             <>
-                            {this.props.postArray.length === 0 ? <h1>Loading</h1>:
+                            {this.props.filteredArray.length === 0 ? <h1>Loading</h1>:
                             <>
                                 <BrowserRouter>
                                     <Switch>
                                         <Route path='/posts/:id' render={({match}) => {
                                             let id = parseInt(match.params.id)
-                                            let foundPost = this.props.postArray.find(post => post.id === id)
+                                            let foundPost = this.props.filteredArray.find(post => post.id === id)
                                             return <Post foundPost={foundPost} deleteFavorite={this.props.deleteFavorite} commentUpdater={this.props.commentUpdater} favHandler={this.props.favHandler} user={this.props.user} />
                                         }}/>
                                         <Route exact path="/posts" render={() => {

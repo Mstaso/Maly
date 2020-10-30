@@ -20,6 +20,7 @@ class App extends React.Component {
     searchValue: "",
     user: null, 
     users: [],
+    favoritePosts: [],
     favorites: []
   }
 
@@ -34,6 +35,7 @@ class App extends React.Component {
   componentDidMount(){
     this.fetchUsers()
     this.fetchPosts()
+    this.fetchFavorites()
     const token = localStorage.getItem("token")
   if (token) {
     fetch('http://localhost:3000/profile', {
@@ -43,9 +45,9 @@ class App extends React.Component {
     .then(resp => resp.json())
     .then(data => {
       this.setUser(data.user)
-      let setFavorites = []
-      this.state.user.favorites.forEach(favorite => setFavorites.push(favorite))
-      this.setState({favorites: setFavorites})        
+      let setFavoritePosts = []
+      this.state.user.posts.forEach(favorite => setFavoritePosts.push(favorite))
+      this.setState({favoritePosts: setFavoritePosts})        
     })
   } 
   }
@@ -55,7 +57,7 @@ class App extends React.Component {
     let newComment = {
       content: content,
       post_id: id,
-      user_id: 1
+      user_id: this.state.user.id
     }
     fetch('http://localhost:3000/comments', {
       method: 'POST',
@@ -66,7 +68,10 @@ class App extends React.Component {
       body: JSON.stringify(newComment)
     })
     .then(response => response.json())
-    .then(response => this.fetchPosts())
+    .then(response => {
+      this.fetchPosts()
+      console.log(response)
+    })
   }
 
   fetchNewPost=(obj)=>{
@@ -124,6 +129,13 @@ class App extends React.Component {
     })
   }
 
+  fetchFavorites = () => {
+    fetch('http://localhost:3000/favorites')
+    .then(response => response.json())
+    .then(response => {
+      this.setState({favorites: response})
+    })
+  }
   
 
   signUpHandler = (userObj) => {
@@ -139,6 +151,8 @@ class App extends React.Component {
     // let updatedUser = this.state.user.posts.push(post)
     // console.log(updatedUser)
     // this.setState({user: updatedUser})
+    let newFavoritePosts = [...this.state.favoritePosts, post]
+    this.setState({favoritePosts: newFavoritePosts})
 
     let favObj = {
       post_id: post.id,
@@ -154,24 +168,18 @@ class App extends React.Component {
       })
         .then(response => response.json())
         .then(response => {
-          let newFavorites = [...this.state.favorites, response]
-          this.setState({favorites: newFavorites})
-          // let updatedUser = this.state.user.posts.push(response)
-          // console.log(updatedUser)
-          // this.setState({user: updatedUser})
+          this.fetchFavorites()
+          console.log(response)
         })
-
-    // let newFavArray = [...this.state.postArray]
-    // let foundObj = newFavArray.find(post => post.id === id)
-    // foundObj.favorite = !foundObj.favorite
-    // this.setState({ postArray: newFavArray })
     
   }
 
   deleteFavorite = (post) => {
     console.log(post)
+   let newFavoritePosts = this.state.favoritePosts.filter(favoritePost => favoritePost.id !== post.id)
+   this.setState({favoritePosts: newFavoritePosts})
    let favObj = this.state.favorites.find(favorite => favorite.post_id === post.id)
-   console.log(favObj)
+   console.log(favObj, this.state.favArray)
     fetch(`http://localhost:3000/favorites/${favObj.id}`, {
       method: 'DELETE',
       headers: {
@@ -180,9 +188,9 @@ class App extends React.Component {
       })
         .then((response) => {
           console.log('Removed from favoites')
-          let filteredFavorites = this.state.favorites.filter(favorite => favorite.post_id !== post.id)
-          this.setState({favorites: filteredFavorites})
-          console.log(this.state.favorites)
+          // let filteredFavorites = this.state.favorites.filter(favorite => favorite.post_id !== post.id)
+          // this.setState({favorites: filteredFavorites})
+          console.log(this.state.favArray)
         })
   }
 
@@ -208,9 +216,9 @@ class App extends React.Component {
               <Route path="/signup" render={(RouterProps) => <SignUp {...RouterProps} submitHandler={this.signUpHandler} setUser={this.setUser} user={this.state.user} />} />
               {/* <Route path="/welcome" render={() => <Welcome submitHandler={this.loginHandler} />} /> */}
               <Route path="/newform" render={() => <NewForm user={this.state.user} fetchNewPost={this.fetchNewPost} />} />
-              <Route path="/profile" render={() => <UserShowPage user={this.state.user} favArray={this.filteredPosts()} appClickHandler={this.appClickHandler} />} />
-              <Route path="/posts" render={() => <PostContainer favHandler={this.favHandler} user={this.state.user} deleteFavorite={this.deleteFavorite} postArray={this.state.postArray}commentUpdater={this.commentUpdater}/>} />
-              <Route path="/users" render={() => <UserContainer user={this.state.user} fetchUsers={this.fetchUsers} users={this.state.users}/>} />
+              {/* <Route path="/profile" render={() => <UserShowPage user={this.state.user} favArray={this.filteredPosts()} appClickHandler={this.appClickHandler} />} /> */}
+              <Route path="/posts" render={() => <PostContainer favHandler={this.favHandler} user={this.state.user} deleteFavorite={this.deleteFavorite} filteredArray={this.filteredArray()} commentUpdater={this.commentUpdater}/>} />
+              <Route path="/users" render={() => <UserContainer user={this.state.user} fetchUsers={this.fetchUsers} favoritePosts={this.state.favoritePosts} users={this.state.users}/>} />
             </Switch>
           </BrowserRouter>
       </>
