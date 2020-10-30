@@ -21,13 +21,13 @@ class App extends React.Component {
     searchValue: "",
     user: null, 
     users: [],
+    favorites: []
   }
 
   fetchPosts = () => {
     fetch(API)
     .then(response => response.json())
     .then(postData => {
-      console.log(postData)
       this.setState({ postArray: postData })
     })
   }
@@ -35,9 +35,6 @@ class App extends React.Component {
   componentDidMount(){
     this.fetchUsers()
     this.fetchPosts()
-    // if (this.state.user){
-    //   this.fetchPosts()
-    // }
     const token = localStorage.getItem("token")
   if (token) {
     fetch('http://localhost:3000/profile', {
@@ -46,7 +43,10 @@ class App extends React.Component {
     })
     .then(resp => resp.json())
     .then(data => {
-      this.setUser(data.user)        
+      this.setUser(data.user)
+      let setFavorites = []
+      this.state.user.favorites.forEach(favorite => setFavorites.push(favorite))
+      this.setState({favorites: setFavorites})        
     })
   } 
   }
@@ -126,7 +126,6 @@ class App extends React.Component {
     .then(response => response.json())
     .then(response => {
       this.setState({users: response})
-      console.log(response)
     })
   }
 
@@ -160,7 +159,8 @@ class App extends React.Component {
       })
         .then(response => response.json())
         .then(response => {
-          console.log(response)
+          let newFavorites = [...this.state.favorites, response]
+          this.setState({favorites: newFavorites})
           // let updatedUser = this.state.user.posts.push(response)
           // console.log(updatedUser)
           // this.setState({user: updatedUser})
@@ -170,11 +170,12 @@ class App extends React.Component {
     // let foundObj = newFavArray.find(post => post.id === id)
     // foundObj.favorite = !foundObj.favorite
     // this.setState({ postArray: newFavArray })
+    
   }
 
   deleteFavorite = (post) => {
     console.log(post)
-   let favObj = this.state.user.favorites.find(favorite => favorite.post_id === post.id)
+   let favObj = this.state.favorites.find(favorite => favorite.post_id === post.id)
    console.log(favObj)
     fetch(`http://localhost:3000/favorites/${favObj.id}`, {
       method: 'DELETE',
@@ -184,6 +185,9 @@ class App extends React.Component {
       })
         .then((response) => {
           console.log('Removed from favoites')
+          let filteredFavorites = this.state.favorites.filter(favorite => favorite.post_id !== post.id)
+          this.setState({favorites: filteredFavorites})
+          console.log(this.state.favorites)
         })
   }
 
