@@ -35,6 +35,8 @@ state = {
     favHandler = (e) => {
         if(this.state.favorite === false){
             this.props.favHandler(this.props.post)
+        } else {
+            this.props.deleteFavorite(this.props.post)
         }
         this.setState({favorite: !this.state.favorite})
         // console.log(e.target.text)

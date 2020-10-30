@@ -22,7 +22,7 @@ class PostContainer extends React.Component{
                                         <Route path='/posts/:id' render={({match}) => {
                                             let id = parseInt(match.params.id)
                                             let foundPost = this.props.postArray.find(post => post.id === id)
-                                            return <Post post={foundPost} appClickHandler={this.props.appClickHandler} commentUpdater={this.props.commentUpdater} favHandler={this.props.favHandler} user={this.props.user} />
+                                            return <Post post={foundPost} deleteFavorite={this.props.deleteFavorite} appClickHandler={this.props.appClickHandler} commentUpdater={this.props.commentUpdater} favHandler={this.props.favHandler} user={this.props.user} />
                                         }}/>
                                         <Route exact path="/posts" render={() => {
                                             return(
