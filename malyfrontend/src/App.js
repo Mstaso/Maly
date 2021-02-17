@@ -33,21 +33,26 @@ class App extends React.Component {
   }
 
   componentDidMount(){
+    console.log(this.state.user)
     this.fetchUsers()
     this.fetchPosts()
     this.fetchFavorites()
     const token = localStorage.getItem("token")
   if (token) {
+    console.log(token)
     fetch('http://localhost:3000/profile', {
       method: "GET",
       headers: { Authorization: `Bearer ${token}`},
     })
     .then(resp => resp.json())
     .then(data => {
+      console.log(data)
       this.setUser(data.user)
       let setFavoritePosts = []
-      this.state.user.posts.forEach(favorite => setFavoritePosts.push(favorite))
-      this.setState({favoritePosts: setFavoritePosts})        
+      if(this.state.user !== undefined){
+        this.state.user.posts.forEach(favorite => setFavoritePosts.push(favorite))
+        this.setState({favoritePosts: setFavoritePosts})        
+      }
     })
   } 
   }
