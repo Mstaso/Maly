@@ -12,10 +12,7 @@ class Login extends React.Component{
     }
 
     loginHandler = (e) => {
-      console.log("been hit")
         e.preventDefault()
-        // this.props.loginUser(this.state)
-        // this.props.currentUser ? this.props.history.push('/posts') : alert('no user')
         fetch('http://localhost:3000/login',{
           method: 'POST',
           headers: {
@@ -67,7 +64,7 @@ class Login extends React.Component{
                     </div>
                     <input class="loginButton" type="submit" value="Login"/>
                 </form>
-                <p onClick={this.clickHandler}> Don't have an account?</p>
+                <p class="switch" onClick={this.clickHandler}> Don't have an account?</p>
                     
             </div>
           </>

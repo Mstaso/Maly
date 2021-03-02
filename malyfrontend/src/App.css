@@ -171,13 +171,10 @@ Media Queries
 .header {
   flex-direction: column;
   align-items: center;
-    .header{
-  width: 80%;
-  margin: 0 auto;
-  max-width: 1150px;
 }
 }
-}
+
+
 @media (min-width: 1025px) {
 .header {
   flex-direction: row;
@@ -372,9 +369,6 @@ margin-right:110px;
 
   /* Comment Css */
 
-  .commentBox{
-  
-  }
   #commentFieldset{
     padding:10px;
     background: 	#A9A9A9;
@@ -465,23 +459,13 @@ margin-right:110px;
 
 }
 
-
-/* #app{
-  height: 100vh;
-  width: 100vw;
-
-} */
+.switch {
+  cursor: pointer;
+}
 
 .container-logo {
   height: 85vh;
-  width: 1500px;
-  /* width: 100vw; */
-  top: 0;
   background: #fff;
-  right: 0;
-  bottom: 0;
-  position: relative;
-  left: 0;
   overflow: hidden;
 }
 

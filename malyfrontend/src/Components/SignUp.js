@@ -61,7 +61,7 @@ class SignUp extends React.Component{
                     </div>
                     <input class="loginButton" type="submit" value="Sign Up"/>
                 </form>
-                <p onClick={this.clickHandler}>
+                <p class="switch" onClick={this.clickHandler}>
                     Already have an account?
                     </p>
             </div>
